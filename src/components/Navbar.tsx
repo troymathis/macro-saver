@@ -18,7 +18,7 @@ const Navbar = async ({}) => {
   
   return (
     <div className={"fixed backdrop-blur-sm bg-white/75 dark:bg-slate-900/75 z-50 top-0 left-0 right-0 h-40 border-b border-slate-300 dark:border-slate-700 shadow-sm flex items-center justify-between"}>
-      <Link href="/" className={`text-3xl ${bebas.className} ${buttonVariants({ variant: "link" })}`}>
+      <Link href="/" className={`text-[30px] ${bebas.className} ${buttonVariants({ variant: "link" })}`}>
         MacroSaver
       </Link>
       <div className="md:hidden">
