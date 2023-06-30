@@ -10,23 +10,32 @@ import SignOutButton from "./SignOutButton";
 
 interface NavbarProps {}
 
-const bebas = Lilita_One({ subsets: ["latin"], weight: '400' });
+const bebas = Lilita_One({ subsets: ["latin"], weight: "400" });
 
 const Navbar = async ({}) => {
-
   const session = await getServerSession();
-  
+
   return (
-    <div className={"fixed backdrop-blur-sm bg-white/75 dark:bg-slate-900/75 z-50 top-0 left-0 right-0 h-40 border-b border-slate-300 dark:border-slate-700 shadow-sm flex items-center justify-between"}>
-      <Link href="/" className={`text-[30px] ${bebas.className} ${buttonVariants({ variant: "link" })}`}>
-        MacroSaver
-      </Link>
-      <div className="md:hidden">
-        <ThemeToggle />
-      </div>
-      <div className="hidden md:flex gap-4">
-        <ThemeToggle />
-        {session ? (
+    <div
+      className={
+        "fixed backdrop-blur-sm bg-white/75 dark:bg-slate-900/75 z-50 top-0 left-0 right-0 h-40 border-b border-slate-300 dark:border-slate-700 shadow-sm flex items-center justify-between"
+      }
+    >
+      <div className="container max-w-7xl mx-auto w-full flex justify-between items-center">
+        <Link
+          href="/"
+          className={`text-[25px] ${bebas.className} ${buttonVariants({
+            variant: "link",
+          })}`}
+        >
+          MacroSaver
+        </Link>
+        <div className="md:hidden">
+          <ThemeToggle />
+        </div>
+        <div className="hidden md:flex gap-4">
+          <ThemeToggle />
+          {session ? (
             <>
               <Link
                 className={buttonVariants({ variant: "ghost" })}
@@ -39,11 +48,10 @@ const Navbar = async ({}) => {
           ) : (
             <SignInButton />
           )}
+        </div>
       </div>
     </div>
   );
 };
 
 export default Navbar;
-
-
