@@ -7,13 +7,14 @@ import { Lilita_One } from "next/font/google";
 import { cn } from "@/lib/utils";
 import SignInButton from "./SignInButton";
 import SignOutButton from "./SignOutButton";
+import { authOptions } from "@/lib/auth";
 
 interface NavbarProps {}
 
 const bebas = Lilita_One({ subsets: ["latin"], weight: "400" });
 
 const Navbar = async ({}) => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   return (
     <div
