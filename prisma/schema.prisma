@@ -1,11 +1,11 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 model Food {
@@ -23,18 +23,18 @@ model Food {
   sugar               Float
   total_carbohydrates Float
   potassium           Float
-  Meal                Meal[]
   quantity            Int?   @default(1)
+  Meal                Meal[]
 }
 
 model Meal {
-  id        String    @id @unique @default(cuid())
+  id        String    @id @default(nanoid())
   name      String
-  flag      String
-  foodItems Food[]
   userId    String
-  AteAt     DateTime? @default(now())
   createdAt DateTime  @default(now())
+  flag      String
+  AteAt     DateTime? @default(now())
+  foodItems Food[]
 }
 
 model Account {
@@ -50,8 +50,7 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -80,4 +79,13 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model FoodToMeal {
+  A Int
+  B String
+
+  @@unique([A, B], map: "_FoodToMeal_AB_unique")
+  @@index([B], map: "_FoodToMeal_B_index")
+  @@map("_FoodToMeal")
 }

@@ -8,6 +8,7 @@ import Paragraph from "@/ui/Paragraph";
 import { Input } from "@mui/material";
 
 import { FC } from "react";
+import Table from "./Table";
 
 interface MealsDashboardProps {}
 
@@ -16,11 +17,14 @@ const MealsDashboard = async () => {
   if (!user) notFound();
 
   const meals = await db.meal.findMany({
-    where: {userId: user.user.id},
+    where: {userId: user.user.id,},
+    include: {foodItems: true},
   })
 
   return <div className="container flex flex-col gap-6 items-center">
     <LargeHeading>Welcome back, {user.user.name}</LargeHeading>
+
+    <Table meals={meals}/>
   </div>;
 };
 
