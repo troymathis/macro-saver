@@ -31,7 +31,7 @@ model Meal {
   id        String @id @unique @default(cuid())
   name      String
   foodItems Food[]
-  foodId    Int
+  userId    String
 }
 
 model Account {

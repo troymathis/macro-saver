@@ -1,13 +1,23 @@
-import { Metadata } from 'next'
-import { FC } from 'react'
+import { authOptions } from "@/lib/auth";
+import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { notFound } from "next/navigation";
+import { db } from "@/lib/db";
 
 export const metadata: Metadata = {
-    title: "Macro Saver | Dashboard",
-    description: "Track your macros through every meal"
-}
+  title: "Macro Saver | Dashboard",
+  description: "Track your macros through every meal",
+};
 
 const page = async () => {
-  return <div>page</div>
-}
+  const user = await getServerSession(authOptions);
+  if (!user) return notFound();
 
-export default page
+  const meals = await db.meal.findMany({
+    where: { userId: user.user.id },
+  });
+
+  return <div>page</div>;
+};
+
+export default page;
