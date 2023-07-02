@@ -6,9 +6,12 @@ import {
   GridColumnHeaderParams,
   type GridColDef,
   DataGrid,
+  GridEventListener,
 } from "@mui/x-data-grid";
 import { useTheme } from "next-themes";
-import { FC } from "react";
+import { FC, FormEvent } from "react";
+import Link from "next/link";
+import { buttonVariants } from "./ui/Button";
 
 const columnsDraft: GridColDef[] = [
   {
@@ -19,6 +22,11 @@ const columnsDraft: GridColDef[] = [
       return (
         <strong className="font-semibold">{params.colDef.headerName} 🍱</strong>
       );
+    },
+    renderCell(params) {
+        return (
+            <Link className={buttonVariants({ variant: "ghost" })} href={`/meal/${params.id}`} >{params.value}</Link>
+        )
     },
   },
   { field: "col2", headerName: "Flag", width: 250 },
@@ -54,32 +62,39 @@ const Table: FC<TableProps> = ({ meals }) => {
     },
   });
 
-  const rows = meals.map(
-    (req) => {
-        const food = req.foodItems
-        const foodInEach = food.map((item: { name: any; }) => {
-            return ` ${item.name}`
-        })
-      return {
-        id: req.id,
-        col1: req.name,
-        col2: req.flag,
-        col4: req.AteAt,
-        col3: foodInEach,
-      }
-    }
-  );
+  const rows = meals.map((req) => {
+    const food = req.foodItems;
+    const foodInEach = food.map((item: { name: any }) => {
+      return ` ${item.name}`;
+    });
+    return {
+      id: req.id,
+      col1: req.name,
+      col2: req.flag,
+      col4: req.AteAt,
+      col3: foodInEach,
+    };
+  });
+
+  const handleEvent: GridEventListener<'rowClick'> = (
+    params, // GridRowParams
+    event, // MuiEvent<React.MouseEvent<HTMLElement>>
+    details, // GridCallbackDetails
+  ) => {
+    event.preventDefault()
+
+  };
+
 
   return (
     <ThemeProvider theme={theme}>
       <DataGrid
         style={{
           backgroundColor:
-            applicationTheme === "light" ? "whitesmoke" : "rgb(217 249 157)",
+            applicationTheme === "light" ? "whitesmoke" : "rgb(54 83 20)",
           fontSize: "1rem",
         }}
         pageSizeOptions={[5]}
-        disableRowSelectionOnClick
         autoHeight
         initialState={{
           pagination: {
