@@ -28,10 +28,13 @@ model Food {
 }
 
 model Meal {
-  id        String @id @unique @default(cuid())
+  id        String    @id @unique @default(cuid())
   name      String
+  flag      String
   foodItems Food[]
   userId    String
+  AteAt     DateTime? @default(now())
+  createdAt DateTime  @default(now())
 }
 
 model Account {
