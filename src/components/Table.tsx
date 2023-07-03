@@ -63,6 +63,7 @@ const Table: FC<TableProps> = ({ meals }) => {
   });
 
   const rows = meals.map((req) => {
+    // @ts-expect-error Server Componen
     const food = req.foodItems;
     const foodInEach = food.map((item: { name: any }) => {
       return ` ${item.name}`;
