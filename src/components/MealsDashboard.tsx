@@ -8,7 +8,7 @@ import Paragraph from "@/ui/Paragraph";
 import { Input } from "@mui/material";
 
 import { FC } from "react";
-import Table from "./Table";
+import DashboardTable from "./DashboardTable";
 
 interface MealsDashboardProps {}
 
@@ -24,7 +24,7 @@ const MealsDashboard = async () => {
   return <div className="container flex flex-col gap-6 items-center">
     <LargeHeading>Welcome back, {user.user.name}</LargeHeading>
 
-    <Table meals={meals}/>
+    <DashboardTable meals={meals}/>
   </div>;
 };
 

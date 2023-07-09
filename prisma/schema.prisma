@@ -10,7 +10,7 @@ datasource db {
 
 model Food {
   id                  Int    @id @unique @default(autoincrement())
-  name                String @unique
+  name                String 
   type                String
   calories            Float
   total_fat           Float
@@ -23,7 +23,7 @@ model Food {
   sugar               Float
   total_carbohydrates Float
   potassium           Float
-  quantity            Int?   @default(1)
+  quantity            Int 
   Meal                Meal[]
 }
 
@@ -84,7 +84,6 @@ model VerificationToken {
 model FoodToMeal {
   A Int
   B String
-  quantity Int
 
   @@unique([A, B], map: "_FoodToMeal_AB_unique")
   @@index([B], map: "_FoodToMeal_B_index")

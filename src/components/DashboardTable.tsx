@@ -29,7 +29,21 @@ const columnsDraft: GridColDef[] = [
         )
     },
   },
-  { field: "col2", headerName: "Flag", width: 250 },
+  {
+    field: "col2",
+    headerName: "Flag",
+    width: 200,
+    renderHeader(params) {
+      return (
+        <strong className="font-semibold">{params.colDef.headerName} 🍱</strong>
+      );
+    },
+    renderCell(params) {
+        return (
+            <strong className={(params.value == "Snack" ? "bg-orange-500 p-1 rounded" : params.value == "Breakfast" ? "bg-lime-500 p-1 rounded" : params.value == "Lunch" ? "bg-sky-500 p-1 rounded" : params.value == "Dinner" ? "bg-purple-500" : 'text-opacity-0')}>{params.value}</strong>
+        )
+    },
+  },
   { field: "col3", headerName: "What's in it?", width: 300 },
   { field: "col4", headerName: "Ate at", width: 250 },
 ];
@@ -49,11 +63,11 @@ const columns = columnsDraft.map((col) => {
   };
 });
 
-interface TableProps {
+interface DashboardTableProps {
   meals: Meal[];
 }
 
-const Table: FC<TableProps> = ({ meals }) => {
+const DashboardTable: FC<DashboardTableProps> = ({ meals }) => {
   const { theme: applicationTheme } = useTheme();
 
   const theme = createTheme({
@@ -63,7 +77,7 @@ const Table: FC<TableProps> = ({ meals }) => {
   });
 
   const rows = meals.map((req) => {
-    // @ts-expect-error Server Componen
+    // @ts-expect-error Server Component
     const food = req.foodItems;
     const foodInEach = food.map((item: { name: any }) => {
       return ` ${item.name}`;
@@ -77,15 +91,6 @@ const Table: FC<TableProps> = ({ meals }) => {
     };
   });
 
-  const handleEvent: GridEventListener<'rowClick'> = (
-    params, // GridRowParams
-    event, // MuiEvent<React.MouseEvent<HTMLElement>>
-    details, // GridCallbackDetails
-  ) => {
-    event.preventDefault()
-
-  };
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -97,6 +102,7 @@ const Table: FC<TableProps> = ({ meals }) => {
         }}
         pageSizeOptions={[5]}
         autoHeight
+        disableRowSelectionOnClick
         initialState={{
           pagination: {
             paginationModel: {
@@ -111,4 +117,4 @@ const Table: FC<TableProps> = ({ meals }) => {
   );
 };
 
-export default Table;
+export default DashboardTable;
