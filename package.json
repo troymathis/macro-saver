@@ -42,6 +42,7 @@
     "prism-react-renderer": "^2.0.6",
     "prisma": "^4.16.1",
     "react": "18.2.0",
+    "react-autosuggest": "^10.1.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",
     "sharp": "^0.32.1",

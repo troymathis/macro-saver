@@ -25,6 +25,8 @@ model Food {
   potassium           Float
   quantity            Int 
   Meal                Meal[]
+
+  @@unique([name, quantity])
 }
 
 model Meal {
@@ -79,13 +81,4 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-model FoodToMeal {
-  A Int
-  B String
-
-  @@unique([A, B], map: "_FoodToMeal_AB_unique")
-  @@index([B], map: "_FoodToMeal_B_index")
-  @@map("_FoodToMeal")
 }

@@ -19,8 +19,8 @@
   }
   
   .dark .three-d {
-    text-shadow: 0px 5px 0px #533519;
+    text-shadow: 0px 5px 3px #67c45e;
   }
   .three-d {
-    text-shadow: none;
+    text-shadow: 0px 3px 3px #3ec73c;
   }

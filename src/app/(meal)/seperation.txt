@@ -1,0 +1,5 @@
+    renderCell(params) {
+        return (
+            <Link className={buttonVariants({ variant: "ghost" })} href={`/meal/${params.id}`} >{params.value}</Link>
+        )
+    },

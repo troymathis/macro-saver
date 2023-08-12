@@ -37,6 +37,7 @@ interface MacroTableProps {
 
 const MacroTable: FC<MacroTableProps> = ({ meal }) => {
   const { theme: applicationTheme } = useTheme();
+  // @ts-ignore
   const food = meal.foodItems;
   const theme = createTheme({
     palette: {
@@ -73,24 +74,23 @@ const MacroTable: FC<MacroTableProps> = ({ meal }) => {
 
 
   const macroObject = {
-    Servings: adjServ,
-    Calories: adjCalo,
-    Fat: adjFat,
-    Calcium: adjCalc,
-    Cholesterol: adjChol,
-    Fiber: adjFi,
-    Iron: adjIr,
-    Potassium: adjPot,
-    Protein: adjPro,
-    Sodium: adjSod,
-    Sugar: adjSug,
-    Carbohydrates: adjCarb,
+    Fat: `${adjFat} g`,
+    Calcium: `${adjCalc} mg`,
+    Cholesterol: `${adjChol} mg`,
+    Fiber: `${adjFi} g`,
+    Iron: `${adjIr} mg`,
+    Potassium: `${adjPot} mg`,
+    Protein: `${adjPro} g`,
+    Sodium: `${adjSod} mg`,
+    Sugar: `${adjSug} g`,
+    Carbohydrates: `${adjCarb} g`,
   };
 
   const rows = Object.keys(macroObject).map(function (key) {
     return {
         id: key,
         col1: key,
+        // @ts-ignore
         col2: macroObject[key],
       };
   })

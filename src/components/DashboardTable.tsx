@@ -12,6 +12,7 @@ import { useTheme } from "next-themes";
 import { FC, FormEvent } from "react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/Button";
+import { redirect } from "next/navigation";
 
 const columnsDraft: GridColDef[] = [
   {
@@ -90,7 +91,6 @@ const DashboardTable: FC<DashboardTableProps> = ({ meals }) => {
       col3: foodInEach,
     };
   });
-
 
   return (
     <ThemeProvider theme={theme}>

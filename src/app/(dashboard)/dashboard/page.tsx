@@ -13,11 +13,7 @@ export const metadata: Metadata = {
 const page = async () => {
   const user = await getServerSession(authOptions);
   if (!user) return notFound();
-
-  const meals: object | null = await db.meal.findMany({
-    where: { userId: user.user.id },
-  });
-
+  
   return <div className="max-w-7xl mx-auto mt-16">
     <MealsDashboard/>
   </div>;
