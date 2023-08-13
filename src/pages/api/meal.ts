@@ -30,36 +30,36 @@ async function createMeal(req: NextApiRequest, res: NextApiResponse) {
 
     const result = await db.meal.create({
       data: {
-        userId: body.user,
+        userId: body.userId,
         name: body.name,
         flag: body.flag,
         AteAt: new Date(body.AteAt),
         createdAt: new Date(),
         foodItems: {
-          connectOrCreate: foods.map((food) => {
+          connectOrCreate: Object.entries(foodBody).map(([key, value]) => {
+            const multiplier = parseFloat(value.newQuan).toFixed(2);
             return {
               where: {
                 name_quantity: {
-                  name: food.name,
-                  quantity: foodBody[item],
+                  name: value.name,
+                  quantity: parseFloat(value.newQuan),
                 },
               },
               create: {
-                name: item,
-                quantity: parseFloat(foodBody[item]),
-                type: food.type,
-                calories: food.calories * parseFloat(foodBody[item]),
-                calcium: food.calcium * parseFloat(foodBody[item]),
-                cholesterol: food.cholesterol * parseFloat(foodBody[item]),
-                fiber: food.fiber * parseFloat(foodBody[item]),
-                iron: food.iron * parseFloat(foodBody[item]),
-                potassium: food.potassium * parseFloat(foodBody[item]),
-                protein: food.protein * parseFloat(foodBody[item]),
-                total_carbohydrates:
-                  food.total_carbohydrates * parseFloat(foodBody[item]),
-                sodium: food.sodium * parseFloat(foodBody[item]),
-                sugar: food.sugar * parseFloat(foodBody[item]),
-                total_fat: food.total_fat * parseFloat(foodBody[item]),
+                name: value.name,
+                calcium: parseFloat(parseFloat(value.calcium * multiplier).toFixed(2)),
+                calories: parseFloat(parseFloat(value.calories * multiplier).toFixed(2)),
+                cholesterol: parseFloat(parseFloat(value.cholesterol * multiplier).toFixed(2)),
+                fiber: parseFloat(parseFloat(value.fiber * multiplier).toFixed(2)),
+                iron: parseFloat(parseFloat(value.iron * multiplier).toFixed(2)),
+                potassium: parseFloat(parseFloat(value.potassium * multiplier).toFixed(2)),
+                protein: parseFloat(parseFloat(value.protein * multiplier).toFixed(2)),
+                quantity: parseFloat(parseFloat(multiplier).toFixed(2)),
+                sodium: parseFloat(parseFloat(value.sodium * multiplier).toFixed(2)),
+                sugar: parseFloat(parseFloat(value.sugar * multiplier).toFixed(2)),
+                total_carbohydrates: parseFloat(parseFloat(value.total_carbohydrates * multiplier).toFixed(2)),
+                total_fat: parseFloat(parseFloat(value.total_fat * multiplier).toFixed(2)),
+                type: value.type,
               },
             };
           }),

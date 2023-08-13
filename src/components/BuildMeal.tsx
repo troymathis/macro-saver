@@ -1,19 +1,15 @@
 "use client";
 
-import { FC, useState, FormEvent, useCallback, useRef, Fragment } from "react";
-import LargeHeading from "./ui/LargeHeading";
+import { FC, useState, FormEvent } from "react";
 import { toast } from "./ui/Toast";
-import { authOptions } from "@/lib/auth";
-import { notFound } from "next/navigation";
 import { Input } from "./ui/Input";
 import Paragraph from "./ui/Paragraph";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { Food } from "@prisma/client";
 import { Autocomplete, Chip, Stack, TextField } from "@mui/material";
 import { useTheme } from "next-themes";
-import axios from "axios";
 import Button from "./ui/Button";
-import { getServerSession, type Session } from "next-auth";
+import { useRouter } from "next/navigation";
 
 interface BuildMealProps {
   food: Food[];
@@ -27,7 +23,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
       mode: applicationTheme === "light" ? "light" : "dark",
     },
   });
-  const [isCreating, setIsCreating] = useState<boolean>(false);
+  
   const [meal, setMeal] = useState<object>({
     name: "",
     userId: userId,
@@ -59,11 +55,12 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
     console.log(meal);
   };
 
+  const router = useRouter()
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      setMeal;
       const response = await fetch("/api/meal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -74,9 +71,16 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
           title: "Error",
           message: "Something went wrong...",
           type: "error",
-        });
+        })
       }
-    } catch (err) {
+       else {
+        toast({
+          title: "Success",
+          message: "Meal successfully created!",
+          type: "success",
+      })
+      router.push("/dashboard")
+    }} catch (err) {
       if (err instanceof Error) {
         toast({
           title: "Error",

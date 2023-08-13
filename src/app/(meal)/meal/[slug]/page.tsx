@@ -1,10 +1,12 @@
 import MacroTable from "@/components/MacroTable";
+import { buttonVariants } from "@/components/ui/Button";
 import LargeHeading from "@/components/ui/LargeHeading";
 import Paragraph from "@/components/ui/Paragraph";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Meal } from "@prisma/client";
 import { getServerSession } from "next-auth";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FC } from "react";
 
@@ -60,6 +62,10 @@ const page: FC<pageProps> = async ({ params: { slug } }) => {
         </LargeHeading>
         <br />
         <LargeHeading size='sm'>{calories}</LargeHeading>
+        <br />
+        <div className="mt-10">
+        <Link className={buttonVariants({ variant: "default" })} href="/dashboard">Back to Dashboard</Link>
+        </div>
       </div>
       <div className="container max-w-7xl mx-auto w-full h-full">
         <LargeHeading size="default" className="three-d mb-4">Macros</LargeHeading>

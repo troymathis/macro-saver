@@ -9,6 +9,8 @@ import { Input } from "@mui/material";
 
 import { FC } from "react";
 import DashboardTable from "./DashboardTable";
+import Button, { buttonVariants } from "./ui/Button";
+import Link from "next/link";
 
 interface MealsDashboardProps {}
 
@@ -25,6 +27,7 @@ const MealsDashboard = async () => {
     <LargeHeading>Welcome back, {user.user.name}</LargeHeading>
 
     <DashboardTable meals={meals}/>
+    <Link href="/build" className={buttonVariants({ variant: "default" })}>Build a Meal</Link>
   </div>;
 };
 
