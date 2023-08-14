@@ -21,9 +21,13 @@ const page: FC<pageProps> = async ({ params: { slug } }) => {
     include: { foodItems: true },
   });
 
+  const food = await db.food.findMany({
+    where: { quantity: 1 },
+  });
+
   return (
     <div>
-      <EditForm meal={meal} userId={userId}/>
+      <EditForm meal={meal} userId={userId} food={food}/>
     </div>
   );
 };

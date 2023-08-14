@@ -4,10 +4,9 @@ import { FC, useState, FormEvent } from "react";
 import { toast } from "./ui/Toast";
 import { Input } from "./ui/Input";
 import Paragraph from "./ui/Paragraph";
-import { ThemeProvider, createTheme } from "@mui/material";
 import { Food } from "@prisma/client";
 import { Autocomplete, Chip, Stack, TextField } from "@mui/material";
-import { useTheme } from "next-themes";
+import { useTheme, ThemeProvider } from "next-themes";
 import Button from "./ui/Button";
 import { useRouter } from "next/navigation";
 
@@ -17,13 +16,7 @@ interface BuildMealProps {
 }
 
 const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
-  const { theme: applicationTheme } = useTheme();
-  const theme = createTheme({
-    palette: {
-      mode: applicationTheme === "light" ? "light" : "dark",
-    },
-  });
-  
+
   const [meal, setMeal] = useState<object>({
     name: "",
     userId: userId,
@@ -52,7 +45,6 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
         [fieldName]: fieldValue,
       }));
     }
-    console.log(meal);
   };
 
   const router = useRouter()
@@ -117,7 +109,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
       setFoodNames(option);
     };
     return (
-      <ThemeProvider theme={theme}>
+      <>
         <Stack spacing={3} sx={{ width: 700 }}>
           <Autocomplete
             disablePortal
@@ -138,31 +130,12 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
                   {...getTagProps({ index })}
                   variant="outlined"
                   label={option}
-                  style={{
-                    backgroundColor:
-                      applicationTheme === "light"
-                        ? "rgb(217 249 157)"
-                        : "rgb(54 83 20)",
-                    fontSize: "1rem",
-                  }}
                 />
               ))
             }
             renderInput={(params) => (
               <TextField
                 {...params}
-                sx={{
-                  fieldset: {
-                    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-                  },
-                }}
-                style={{
-                  backgroundColor:
-                    applicationTheme === "light"
-                      ? "whitesmoke"
-                      : "rgb(54 83 20)",
-                  fontSize: "1rem",
-                }}
                 variant="outlined"
                 label="Ingredients"
                 name="foodItems"
@@ -187,7 +160,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
             </div>
           ))}
         </div>
-      </ThemeProvider>
+        </>
     );
   };
 
