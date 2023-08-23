@@ -12,17 +12,17 @@ model Food {
   id                  Int    @id @unique @default(autoincrement())
   name                String 
   type                String
-  calories            Float
-  total_fat           Float
-  sodium              Float
-  cholesterol         Float
-  fiber               Float
-  calcium             Float
-  iron                Float
-  protein             Float
-  sugar               Float
-  total_carbohydrates Float
-  potassium           Float
+  calories            Decimal
+  total_fat           Decimal
+  sodium              Decimal
+  cholesterol         Decimal
+  fiber               Decimal
+  calcium             Decimal
+  iron                Decimal
+  protein             Decimal
+  sugar               Decimal
+  total_carbohydrates Decimal
+  potassium           Decimal
   quantity            Int 
   Meal                Meal[]
 

@@ -18,6 +18,7 @@ interface pageProps {
 
 const page: FC<pageProps> = async ({ params: { slug } }) => {
   const user = await getServerSession(authOptions);
+  const editString = `/meal/${slug}/edit`
   if (!user) return notFound();
   // @ts-expect-error Server Component
   const meal: Meal = await db.meal.findFirst({
@@ -63,7 +64,9 @@ const page: FC<pageProps> = async ({ params: { slug } }) => {
         <br />
         <LargeHeading size='sm'>{calories}</LargeHeading>
         <br />
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col gap-4 w-48">
+        <Link className={buttonVariants({ variant: "default" })} href={editString}>Edit Meal</Link>
+
         <Link className={buttonVariants({ variant: "default" })} href="/dashboard">Back to Dashboard</Link>
         </div>
       </div>

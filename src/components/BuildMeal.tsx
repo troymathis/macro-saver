@@ -71,7 +71,6 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
           message: "Meal successfully created!",
           type: "success",
       })
-      router.push("/dashboard")
     }} catch (err) {
       if (err instanceof Error) {
         toast({
@@ -228,7 +227,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
             <Input type="datetime-local" name="AteAt" onChange={handleInput} />
           </div>
           {foodAutoComplete()}
-          <Button type="submit">Create Meal</Button>
+          <Button type="submit" onClick={() => router.push('/dashboard')}>Create Meal</Button>
         </form>
       </div>
     </div>

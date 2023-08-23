@@ -28,6 +28,17 @@ async function editMeal(req: NextApiRequest, res: NextApiResponse) {
   const body = req.body;
   const foodBody = body.foodItems;
   try {
+    await db.meal.update({
+      where: {
+        id: body.id
+      },
+      data: {
+        foodItems: {
+          set: []
+        }
+      }
+    })
+
     const result = await db.meal.update({
       where: {
         id: body.id,
@@ -35,16 +46,16 @@ async function editMeal(req: NextApiRequest, res: NextApiResponse) {
       data: {
         name: body.name,
         flag: body.flag,
-        AteAt: newDate(body.AteAt),
+        AteAt: new Date(body.AteAt),
         createdAt: new Date(),
         foodItems: {
           connectOrCreate: Object.entries(foodBody).map(([key, value]) => {
-            const multiplier = parseFloat(value.newQuan).toFixed(2);
+            const multiplier = parseFloat(value.quantity).toFixed(2);
             return {
               where: {
                 name_quantity: {
                   name: value.name,
-                  quantity: parseFloat(parseFloat(value.newQuan).toFixed(2)),
+                  quantity: parseFloat(parseFloat(value.quantity).toFixed(2)),
                 },
               },
               create: {

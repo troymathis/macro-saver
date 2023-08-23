@@ -74,7 +74,7 @@ export function toast(opts: ToastOpts) {
         visible={visible}
         className={cn({
           'bg-red-600 text-white': type === 'error',
-          'bg-lime text-white': type === 'success',
+          'bg-lime-500 text-white': type === 'success',
         })}>
         <Toast.Title>{title}</Toast.Title>
         {message && <Toast.Description>{message}</Toast.Description>}
