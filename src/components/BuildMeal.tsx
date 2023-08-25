@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+
 "use client";
 
 import { FC, useState, FormEvent } from "react";
@@ -71,6 +74,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
           message: "Meal successfully created!",
           type: "success",
       })
+      router.push('/dashboard')
     }} catch (err) {
       if (err instanceof Error) {
         toast({
@@ -109,7 +113,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
     };
     return (
       <>
-        <Stack spacing={3} sx={{ width: 700 }}>
+        <Stack spacing={3} sx={{ width: 700 }} className="dark:bg-lime-900 rounded-md">
           <Autocomplete
             disablePortal
             multiple
@@ -127,6 +131,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
               value.map((option, index) => (
                 <Chip
                   {...getTagProps({ index })}
+                  className="bg-lime-500 mr-3"
                   variant="outlined"
                   label={option}
                 />
@@ -227,7 +232,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
             <Input type="datetime-local" name="AteAt" onChange={handleInput} />
           </div>
           {foodAutoComplete()}
-          <Button type="submit" onClick={() => router.push('/dashboard')}>Create Meal</Button>
+          <Button type="submit">Create Meal</Button>
         </form>
       </div>
     </div>

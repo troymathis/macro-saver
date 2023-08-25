@@ -27,7 +27,7 @@ const MealsDashboard = async () => {
     <LargeHeading>Welcome back, {user.user.name}</LargeHeading>
 
     <DashboardTable meals={meals}/>
-    <Link href="/build" className={buttonVariants({ variant: "default" })}>Build a Meal</Link>
+    <Link href="/build" className={buttonVariants({ variant: "default" })} prefetch={false}>Build a Meal</Link>
   </div>;
 };
 

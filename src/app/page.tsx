@@ -35,6 +35,7 @@ export default function Home() {
               fill
               src="/food.png"
               alt="food"
+              sizes="100vw"
             />
           </div>
         </div>

@@ -1,18 +1,22 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+
 "use client";
 
 import { Food, Meal } from "@prisma/client";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { Chip, ThemeProvider, createTheme } from "@mui/material";
 import {
   GridColumnHeaderParams,
   type GridColDef,
   DataGrid,
-  GridEventListener,
 } from "@mui/x-data-grid";
 import { useTheme } from "next-themes";
 import { FC, FormEvent } from "react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/Button";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import Paragraph from "./ui/Paragraph";
+import { cn } from "@/lib/utils";
 
 const columnsDraft: GridColDef[] = [
   {
@@ -26,7 +30,7 @@ const columnsDraft: GridColDef[] = [
     },
     renderCell(params) {
         return (
-            <Link className={buttonVariants({ variant: "ghost" })} href={`/meal/${params.id}`} >{params.value}</Link>
+            <Paragraph className={cn("text-black italic items-center pt-2", "dark:text-white")}>{params.value}</Paragraph>
         )
     },
   },
@@ -41,7 +45,10 @@ const columnsDraft: GridColDef[] = [
     },
     renderCell(params) {
         return (
-            <strong className={(params.value == "Snack" ? "bg-orange-500 p-1 rounded" : params.value == "Breakfast" ? "bg-lime-500 p-1 rounded" : params.value == "Lunch" ? "bg-sky-500 p-1 rounded" : params.value == "Dinner" ? "bg-purple-500" : 'text-opacity-0')}>{params.value}</strong>
+            <Chip variant="filled"
+            style={{ backgroundColor: params.value === "Snack" ? 'orange': params.value === "Dinner" ? "violet" : params.value === "Breakfast" ? 'cornflowerblue' : params.value === "Lunch" ? 'green' : null}}
+            label={params.value}
+            key={params.value}></Chip>
         )
     },
   },
@@ -91,6 +98,13 @@ const DashboardTable: FC<DashboardTableProps> = ({ meals }) => {
       col3: foodInEach,
     };
   });
+  const router = useRouter()
+
+  const rowClick = (proxy, event) => {
+    router.push(`/meal/${proxy.id}`)
+    // how to get the resource id??
+}
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -102,7 +116,10 @@ const DashboardTable: FC<DashboardTableProps> = ({ meals }) => {
         }}
         pageSizeOptions={[5]}
         autoHeight
+        className="hover:cursor-pointer"
+        onRowClick={rowClick}
         disableRowSelectionOnClick
+        disableColumnSelector
         initialState={{
           pagination: {
             paginationModel: {

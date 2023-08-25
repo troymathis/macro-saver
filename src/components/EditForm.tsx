@@ -1,14 +1,19 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+
 "use client";
+
 import { Autocomplete, Chip, Stack, TextField } from "@mui/material";
 import { Food, Meal } from "@prisma/client";
-import { useTheme } from "next-themes";
-import React, { FC, FormEvent, useEffect, useRef, useState } from "react";
+import React, { FC, FormEvent, useEffect, useState } from "react";
 import Paragraph from "./ui/Paragraph";
 import { Input } from "./ui/Input";
 import { toast } from "./ui/Toast";
 import { useRouter } from "next/navigation";
 import Button from "./ui/Button";
-import { defaultConfig } from "next/dist/server/config-shared";
+import { Trash2 } from "lucide-react";
+import LargeHeading from "./ui/LargeHeading";
+import { cn } from "@/lib/utils";
 
 interface EditFormProps {
   meal: Meal;
@@ -31,6 +36,7 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
     createdAt: meal.createdAt,
   });
 
+  const [deleteClicked, setDeleteClicked] = useState<boolean>(false);
   const [flagged, setFlagged] = useState<any | null>(undefined);
 
   useEffect(() => {
@@ -59,7 +65,7 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
     console.log(mealState);
   };
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -101,6 +107,48 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
       });
     }
   };
+
+  const handleDelete = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/delete", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(meal),
+      });
+      if (response.status !== 200) {
+        toast({
+          title: "Error",
+          message: "Something went wrong...",
+          type: "error",
+        });
+      } else {
+        toast({
+          title: "Success",
+          message: "Meal successfully deleted!",
+          type: "success",
+        });
+        router.push(`/dashboard`);
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        toast({
+          title: "Error",
+          message: err.message,
+          type: "error",
+        });
+
+        return;
+      }
+      toast({
+        title: "Error",
+        message: "Something went wrong.",
+        type: "error",
+      });
+    }
+  };
+
   const options: [] = [];
   food.map((item) => {
     options.push(item.name);
@@ -133,7 +181,11 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
     };
     return (
       <React.Fragment key="atcmplt">
-        <Stack spacing={3} sx={{ width: 700 }}>
+        <Stack
+          spacing={3}
+          sx={{ width: 700 }}
+          className="dark:bg-lime-900 rounded-md"
+        >
           <Autocomplete
             disablePortal
             multiple
@@ -159,6 +211,7 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
               value.map((option, index) => (
                 <Chip
                   {...getTagProps({ index })}
+                  className="bg-lime-500 mr-3"
                   variant="outlined"
                   label={option}
                   key={option}
@@ -169,7 +222,6 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
               <TextField
                 {...params}
                 variant="outlined"
-                label="Ingredients"
                 name="foodItems"
                 placeholder="What's in it?"
               />
@@ -249,8 +301,28 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
             />
           </div>
           {foodAutoComplete()}
-          <Button type="submit">Update Meal</Button>
+          <div className="flex flex-row gap-4 flex-row-reverse">
+            <Button type="submit">Update Meal</Button>
+          </div>
         </form>
+        <button className="rounded-md bg-red-500 hover:bg-red-400 p-2 max-w-fit" onClick={() => setDeleteClicked(true)}>
+          <Trash2 />
+        </button>
+        {deleteClicked ? (
+          <div
+            className={cn(
+              "flex flex-col gap-4 absolute bg-gradient-to-b from-white to-transparent w-full items-center h-5/6 rounded-md pt-12",
+              "dark:from-slate-900"
+            )}
+          >
+            <LargeHeading size="sm">
+              Are you sure you'd like to delete this meal?
+            </LargeHeading>
+            <br />
+            <Button onClick={(e: any) => handleDelete(e)}>Yes</Button>
+            <Button onClick={() => setDeleteClicked(false)}>Go back</Button>
+          </div>
+        ): null}
       </div>
     </div>
   );

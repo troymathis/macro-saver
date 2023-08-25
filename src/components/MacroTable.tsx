@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+
 "use client";
 
 import { Food, FoodToMeal, Meal } from "@prisma/client";
@@ -14,6 +17,8 @@ import { FC, FormEvent, useState } from "react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/Button";
 import Paragraph from "./ui/Paragraph";
+import { toast } from "./ui/Toast";
+import { Trash2 } from "lucide-react";
 
 const columnsDraft: GridColDef[] = [
   { field: "col1", headerName: "Macro", width: 300 },
@@ -72,31 +77,32 @@ const MacroTable: FC<MacroTableProps> = ({ meal }) => {
     adjServ += item.quantity;
   });
 
-
   const macroObject = {
-    Fat: `${adjFat} g`,
-    Calcium: `${adjCalc} mg`,
-    Cholesterol: `${adjChol} mg`,
-    Fiber: `${adjFi} g`,
-    Iron: `${adjIr} mg`,
-    Potassium: `${adjPot} mg`,
-    Protein: `${adjPro} g`,
-    Sodium: `${adjSod} mg`,
-    Sugar: `${adjSug} g`,
-    Carbohydrates: `${adjCarb} g`,
+    Fat: `${adjFat.toFixed(2)} g`,
+    Calcium: `${adjCalc.toFixed(2)} mg`,
+    Cholesterol: `${adjChol.toFixed(2)} mg`,
+    Fiber: `${adjFi.toFixed(2)} g`,
+    Iron: `${adjIr.toFixed(2)} mg`,
+    Potassium: `${adjPot.toFixed(2)} mg`,
+    Protein: `${adjPro.toFixed(2)} g`,
+    Sodium: `${adjSod.toFixed(2)} mg`,
+    Sugar: `${adjSug.toFixed(2)} g`,
+    Carbohydrates: `${adjCarb.toFixed(2)} g`,
   };
 
   const rows = Object.keys(macroObject).map(function (key) {
     return {
-        id: key,
-        col1: key,
-        // @ts-ignore
-        col2: macroObject[key],
-      };
-  })
+      id: key,
+      col1: key,
+      // @ts-ignore
+      col2: macroObject[key],
+    };
+  });
+  
 
   return (
     <ThemeProvider theme={theme}>
+      
       <DataGrid
         style={{
           backgroundColor:

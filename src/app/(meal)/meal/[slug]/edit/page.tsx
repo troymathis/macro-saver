@@ -4,6 +4,15 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import EditForm from "@/components/EditForm";
+import LargeHeading from "@/components/ui/LargeHeading";
+import { Trash2 } from "lucide-react";
+import { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+  title: "Macro Saver | Edit Meal",
+  description: "Track your macros through every meal",
+};
 
 interface pageProps {
   params: {
@@ -26,8 +35,10 @@ const page: FC<pageProps> = async ({ params: { slug } }) => {
   });
 
   return (
-    <div>
+    <div className="flex flex-col pl-24 pr-24 items-center">
+      <LargeHeading>Edit {meal.name}</LargeHeading>
       <EditForm meal={meal} userId={userId} food={food}/>
+      
     </div>
   );
 };

@@ -12,17 +12,17 @@ model Food {
   id                  Int    @id @unique @default(autoincrement())
   name                String 
   type                String
-  calories            Decimal
-  total_fat           Decimal
-  sodium              Decimal
-  cholesterol         Decimal
-  fiber               Decimal
-  calcium             Decimal
-  iron                Decimal
-  protein             Decimal
-  sugar               Decimal
-  total_carbohydrates Decimal
-  potassium           Decimal
+  calories            Float
+  total_fat           Float
+  sodium              Float
+  cholesterol         Float
+  fiber               Float
+  calcium             Float
+  iron                Float
+  protein             Float
+  sugar               Float
+  total_carbohydrates Float
+  potassium           Float
   quantity            Int 
   Meal                Meal[]
 
@@ -30,13 +30,14 @@ model Food {
 }
 
 model Meal {
-  id        String    @id @default(nanoid())
+  id        String    @unique @id @default(nanoid())
   name      String
   userId    String
   createdAt DateTime  @default(now())
   flag      String
   AteAt     DateTime? @default(now())
   foodItems Food[]
+
 }
 
 model Account {
