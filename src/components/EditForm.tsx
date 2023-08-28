@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 //@ts-nocheck
 
 "use client";
@@ -41,7 +41,7 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
 
   useEffect(() => {
     setFlagged(meal.flag);
-  });
+  },[meal.flag]);
 
   const flags = ["Snack", "Breakfast", "Lunch", "Dinner"];
 
@@ -251,8 +251,8 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
   };
 
   const flagRadio = () => {
-    return flags.map((flag) => (
-      <div className="flex flex-col items-center">
+    return flags.map((flag, i) => (
+      <div className="flex flex-col items-center" key={i}>
         <Paragraph>{flag}</Paragraph>
         <Input
           type="radio"
@@ -301,7 +301,7 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
             />
           </div>
           {foodAutoComplete()}
-          <div className="flex flex-row gap-4 flex-row-reverse">
+          <div className="flex flex-row gap-4">
             <Button type="submit">Update Meal</Button>
           </div>
         </form>
@@ -316,7 +316,7 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
             )}
           >
             <LargeHeading size="sm">
-              Are you sure you'd like to delete this meal?
+              Are you sure you&apos;d like to delete this meal?
             </LargeHeading>
             <br />
             <Button onClick={(e: any) => handleDelete(e)}>Yes</Button>

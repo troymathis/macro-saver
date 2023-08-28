@@ -20,7 +20,7 @@ const page = async ({}) => {
 
   return (
     <div className="flex flex-col items-center">
-      <LargeHeading className="p-1">Hey! What'd you eat today?</LargeHeading>
+      <LargeHeading className="p-1">Hey! What&apos;d you eat today?</LargeHeading>
     <div>
       <BuildMeal food={food} userId={userId}/>
     </div>

@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 //@ts-nocheck
 
 "use client";
@@ -130,6 +130,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
             renderTags={(value, getTagProps) =>
               value.map((option, index) => (
                 <Chip
+                key={index}
                   {...getTagProps({ index })}
                   className="bg-lime-500 mr-3"
                   variant="outlined"
@@ -150,8 +151,8 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
         </Stack>
 
         <div className="flex flex-col gap-4 mt-4">
-          {foodNames.map((name) => (
-            <div className="flex gap-4">
+          {foodNames.map((name, i) => (
+            <div className="flex gap-4" key={i}>
               <Paragraph>{name}:</Paragraph>
               <Input
                 className="w-20"
