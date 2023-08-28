@@ -36,7 +36,7 @@ const page: FC<pageProps> = async ({ params: { slug } }) => {
 
   return (
     <div className="flex flex-col pl-24 pr-24 items-center">
-      <LargeHeading>Edit {meal.name}</LargeHeading>
+      <LargeHeading className="p-1">Edit {meal.name}</LargeHeading>
       <EditForm meal={meal} userId={userId} food={food}/>
       
     </div>

@@ -21,7 +21,7 @@ const Navbar = async ({}) => {
       <div className="container max-w-7xl mx-auto w-full flex justify-between items-center p-5">
         <Link
           href="/"
-          className={`text-[20px] ${bebas.className} ${buttonVariants({
+          className={`text-[18px] ${bebas.className} ${buttonVariants({
             variant: "link",
           })}`}
         >

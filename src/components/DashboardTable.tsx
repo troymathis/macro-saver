@@ -109,10 +109,13 @@ const DashboardTable: FC<DashboardTableProps> = ({ meals }) => {
   return (
     <ThemeProvider theme={theme}>
       <DataGrid
-        style={{
+        sx={{
           backgroundColor:
             applicationTheme === "light" ? "whitesmoke" : "rgb(54 83 20)",
           fontSize: "1rem",
+          [theme.breakpoints.down("sm")]: {
+            width: "80vw"
+          },
         }}
         pageSizeOptions={[5]}
         autoHeight

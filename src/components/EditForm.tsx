@@ -183,8 +183,8 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
       <React.Fragment key="atcmplt">
         <Stack
           spacing={3}
-          sx={{ width: 700 }}
-          className="dark:bg-lime-900 rounded-md"
+          sx={{ width: 300 }}
+          className=" dark:bg-lime-900 rounded-md"
         >
           <Autocomplete
             disablePortal
@@ -270,7 +270,7 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
     <div className="container">
       <div className="flex flex-col gap-6 items-center">
         <form
-          className="mt-6 sm:flex sm:items-center flex flex-col gap-12"
+          className="mt-6 items-center flex flex-col gap-12"
           onSubmit={handleSubmit}
           action="#"
           method="PUT"

@@ -113,7 +113,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
     };
     return (
       <>
-        <Stack spacing={3} sx={{ width: 700 }} className="dark:bg-lime-900 rounded-md">
+        <Stack spacing={3} sx={{ width: 300 }} className="dark:bg-lime-900 rounded-md">
           <Autocomplete
             disablePortal
             multiple

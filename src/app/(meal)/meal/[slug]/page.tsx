@@ -5,6 +5,7 @@ import Paragraph from "@/components/ui/Paragraph";
 import { toast } from "@/components/ui/Toast";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { cn } from "@/lib/utils";
 import { Meal } from "@prisma/client";
 import { Trash2 } from "lucide-react";
 import { Metadata } from "next";
@@ -50,8 +51,8 @@ const page: FC<pageProps> = async ({ params: { slug } }) => {
     }
   );
   return meal ? (
-    <div className="flex flex-row pl-24 pr-24 mt-16">
-      <div className=" max-w-7xl mx-auto w-full h-full">
+    <div className={cn("lg:flex lg:flex-row lg:pl-24 lg:pr-24 lg:mt-16",)}>
+      <div className="max-w-7xl mx-auto w-full h-full flex flex-col items-center">
         <LargeHeading size="lg" className="three-d">
           {meal.name}
         </LargeHeading>
@@ -73,7 +74,7 @@ const page: FC<pageProps> = async ({ params: { slug } }) => {
         <br />
         <LargeHeading size="sm">{calories.toFixed(2)}</LargeHeading>
         <br />
-        <div className="mt-10 flex flex-col gap-4 max-w-fit">
+        <div className=" p-4 flex flex-col gap-4 max-w-fit items-center justify-center">
           <Link
             className={buttonVariants({ variant: "default" })}
             href={editString}
