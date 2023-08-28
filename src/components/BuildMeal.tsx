@@ -132,7 +132,8 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
                 <Chip
                 key={index}
                   {...getTagProps({ index })}
-                  className="bg-lime-500 mr-3"
+                  className="mr-3"
+                  style={{backgroundColor: 'limegreen'}}
                   variant="outlined"
                   label={option}
                 />
@@ -180,7 +181,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
         >
           <div className="flex flex-row gap-2 items-center">
             <Paragraph>Name:</Paragraph>
-            <Input type="text" name="name" onChange={handleInput} />
+            <Input type="text" name="name" onChange={handleInput} required/>
           </div>
           <div className="flex flex-row gap-8 border border-lime-300 p-4 bg-lime-200 dark:bg-lime-900 rounded-md shadow-md">
             <div className="flex flex-col items-center">
