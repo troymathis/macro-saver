@@ -133,7 +133,7 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
                 key={index}
                   {...getTagProps({ index })}
                   className="mr-3"
-                  style={{backgroundColor: 'lightgreen'}}
+                  style={{backgroundColor: '#67c45e'}}
                   variant="outlined"
                   label={option}
                 />
