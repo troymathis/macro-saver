@@ -69,7 +69,14 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if(!mealState.name || !mealState.flag) {
+      toast({
+        title: "Error",
+        message: "Please fill out the required fields",
+        type: "error",
+      });
+      return
+    }
     try {
       const response = await fetch("/api/meal", {
         method: "PUT",
