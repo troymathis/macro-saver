@@ -218,7 +218,8 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
               value.map((option, index) => (
                 <Chip
                   {...getTagProps({ index })}
-                  className="bg-lime-500 mr-3"
+                  className="mr-3"
+                  style={{backgroundColor: '#67c45e'}}
                   variant="outlined"
                   label={option}
                   key={option}
@@ -267,7 +268,7 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
           name="flag"
           value={flag}
           onChange={handleInput}
-          defaultChecked={flag == flagged}
+          defaultChecked={flag == meal.flag}
         />
       </div>
     ));
@@ -275,7 +276,7 @@ const EditForm: FC<EditFormProps> = ({ food, meal, userId }) => {
 
   return (
     <div className="container">
-      <div className="flex flex-col gap-6 items-center">
+      <div className="flex flex-col gap-6 items-center mb-4">
         <form
           className="mt-6 items-center flex flex-col gap-12"
           onSubmit={handleSubmit}

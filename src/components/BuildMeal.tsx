@@ -143,7 +143,6 @@ const BuildMeal: FC<BuildMealProps> = ({ food, userId }) => {
               <TextField
                 {...params}
                 variant="outlined"
-                label="Ingredients"
                 name="foodItems"
                 placeholder="What's in it?"
               />
